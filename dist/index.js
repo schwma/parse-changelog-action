@@ -2707,11 +2707,13 @@ const parseReleases = (changelog, regex) => {
   return titles.map((title, i) => ({ title, body: bodies[i]}))
 }
 
-const _strippedVersionString = version => version.replace(/[^\d.]/, '')
+const stripVersionString = version => version.replace(/[^\d.]/, '')
 
-const getReleaseForVersion = (releases, version) => releases.find(r => r.title.includes(_strippedVersionString(version)))
+const getLatestRelease = releases => releases[0]
 
-module.exports = { parseReleases, getReleaseForVersion }
+const getReleaseForVersion = (releases, version) => releases.find(r => r.title.includes(version))
+
+module.exports = { parseReleases, stripVersionString, getLatestRelease, getReleaseForVersion }
 
 /***/ }),
 
@@ -2734,6 +2736,17 @@ const readChangelog = path => {
 }
 
 module.exports = { readChangelog }
+
+/***/ }),
+
+/***/ 26:
+/***/ ((module) => {
+
+const getLatestRelease = releases => releases[0]
+
+const getReleaseForVersion = (releases, version) => releases.find(r => r.title.includes(version))
+
+module.exports = { getLatestRelease, getReleaseForVersion }
 
 /***/ }),
 
@@ -2868,19 +2881,37 @@ var __webpack_exports__ = {};
 (() => {
 const core = __nccwpck_require__(186)
 
-const { parseReleases, getReleaseForVersion } = __nccwpck_require__(248)
 const { readChangelog } = __nccwpck_require__(852)
+const { parseReleases, stripVersionString } = __nccwpck_require__(248)
+const { getLatestRelease, getReleaseForVersion } = __nccwpck_require__(26)
 
 try {
-  const changelog = readChangelog()
+  const path = core.getInput('path')
+  if (path) {
+    core.debug('Using changelog file path: ' + path)
+  } else {
+    core.debug('Changelog file path not set. Trying default locations.')
+  }
+
+  const changelog = readChangelog(path)
+  core.debug('Read changelog contents:\n' + changelog)
 
   const titleRegex = core.getInput('title-regex')
   core.debug('Using titleRegex: ' + titleRegex)
   const releases = parseReleases(changelog, titleRegex)
 
   const version = core.getInput('version')
-  core.debug('Using version: ' + version)
-  const release = version ? getReleaseForVersion(releases, version) : releases[0]
+  const release = (() => {
+    if (version) {
+      core.debug('Using version: ' + version)
+      const stippedVersion = stripVersionString(version)
+      core.debug('Stripped version:' + stippedVersion)
+      return getReleaseForVersion(releases, version)
+    } else {
+      core.debug('Version not set. Using latest release')
+      return getLatestRelease(releases)
+    }
+  })()
 
   core.setOutput('title', release.title)
   core.setOutput('body', release.body)
