@@ -6,6 +6,7 @@ const { getLatestRelease, getReleaseForVersion } = require('./src/release')
 
 try {
   const changelog = readChangelog()
+  core.debug('Read changelog:\n' + changelog)
 
   const titleRegex = core.getInput('title-regex')
   core.debug('Using titleRegex: ' + titleRegex)
