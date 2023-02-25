@@ -1,7 +1,8 @@
 const core = require('@actions/core')
 
-const { parseReleases, stripVersionString, getLatestRelease, getReleaseForVersion } = require('./src/parse')
 const { readChangelog } = require('./src/read')
+const { parseReleases, stripVersionString } = require('./src/parse')
+const { getLatestRelease, getReleaseForVersion } = require('./src/release')
 
 try {
   const changelog = readChangelog()
