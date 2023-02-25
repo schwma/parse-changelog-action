@@ -1,0 +1,19 @@
+name: 'Parse changelog action'
+description: 'Parse a specific release from a CHANGELOG that roughly follows the "Keep a Changelog" format'
+author: 'Marcel Schwarz'
+inputs:
+  title-regex:
+    description: 'The regex to use when finding release titles'
+    required: false
+    default: '^## .*$'
+  version:
+    description: "The release version to parse from the changelog (all non-digit and period characters will be stipped away). The latest release will be used if this value isn't supplied."
+    required: false
+outputs:
+  title:
+    description: 'The title of the parsed release'
+  body:
+    description: 'The body of the parsed release'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'

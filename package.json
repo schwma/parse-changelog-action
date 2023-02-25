@@ -1,0 +1,25 @@
+{
+  "name": "parse-changelog-action",
+  "version": "0.1.0",
+  "description": "This GitHub action parses a specific release from a CHANGELOG that roughly follows the \"Keep a Changelog\" format.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "ncc build index.js -o dist --source-map --license licenses.txt",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "GitHub",
+    "action",
+    "parse",
+    "changelog"
+  ],
+  "author": "Marcel Schwarz",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@actions/core": "^1.10.0"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.36.1"
+  }
+}
