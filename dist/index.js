@@ -2750,6 +2750,14 @@ module.exports = { getLatestRelease, getReleaseForVersion }
 
 /***/ }),
 
+/***/ 594:
+/***/ ((module) => {
+
+module.exports = eval("require")("../package.json");
+
+
+/***/ }),
+
 /***/ 491:
 /***/ ((module) => {
 
@@ -2886,6 +2894,9 @@ const { parseReleases, stripVersionString } = __nccwpck_require__(248)
 const { getLatestRelease, getReleaseForVersion } = __nccwpck_require__(26)
 
 try {
+  const package = __nccwpck_require__(594)
+  core.debug(package.name + '@' + package.version)
+
   const path = core.getInput('path')
   if (path) {
     core.debug('Using changelog file path input: ' + path)

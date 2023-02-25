@@ -5,6 +5,9 @@ const { parseReleases, stripVersionString } = require('./src/parse')
 const { getLatestRelease, getReleaseForVersion } = require('./src/release')
 
 try {
+  const package = require('../package.json')
+  core.debug(package.name + '@' + package.version)
+
   const path = core.getInput('path')
   if (path) {
     core.debug('Using changelog file path input: ' + path)
