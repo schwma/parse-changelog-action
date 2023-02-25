@@ -20,17 +20,16 @@ try {
   const releases = parseReleases(changelog, titleRegex)
 
   const version = core.getInput('version')
-  const release = (() => {
-    if (version) {
-      core.debug('Using version input: ' + version)
-      const stippedVersion = stripVersionString(version)
-      core.debug('Stripped version: ' + stippedVersion)
-      return getReleaseForVersion(releases, version)
-    } else {
-      core.debug('Version input not set. Using latest release')
-      return getLatestRelease(releases)
-    }
-  })()
+  let release
+  if (version) {
+    core.debug('Using version input: ' + version)
+    const stippedVersion = stripVersionString(version)
+    core.debug('Stripped version: ' + stippedVersion)
+    release = getReleaseForVersion(releases, version)
+  } else {
+    core.debug('Version input not set. Using latest release')
+    release = getLatestRelease(releases)
+  }
 
   core.setOutput('title', release.title)
   core.setOutput('body', release.body)
