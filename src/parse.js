@@ -14,8 +14,10 @@ const parseReleases = (changelog, regex) => {
   return titles.map((title, i) => ({ title, body: bodies[i]}))
 }
 
-const _strippedVersionString = version => version.replace(/[^\d.]/, '')
+const stripVersionString = version => version.replace(/[^\d.]/, '')
 
-const getReleaseForVersion = (releases, version) => releases.find(r => r.title.includes(_strippedVersionString(version)))
+const getLatestRelease = releases => releases[0]
 
-module.exports = { parseReleases, getReleaseForVersion }
+const getReleaseForVersion = (releases, version) => releases.find(r => r.title.includes(version))
+
+module.exports = { parseReleases, stripVersionString, getLatestRelease, getReleaseForVersion }
