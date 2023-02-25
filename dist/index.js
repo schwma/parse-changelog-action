@@ -2888,27 +2888,27 @@ const { getLatestRelease, getReleaseForVersion } = __nccwpck_require__(26)
 try {
   const path = core.getInput('path')
   if (path) {
-    core.debug('Using changelog file path: ' + path)
+    core.debug('Using changelog file path input: ' + path)
   } else {
-    core.debug('Changelog file path not set. Trying default locations.')
+    core.debug('Changelog file path input not set. Trying default locations.')
   }
 
   const changelog = readChangelog(path)
   core.debug('Read changelog contents:\n' + changelog)
 
   const titleRegex = core.getInput('title-regex')
-  core.debug('Using titleRegex: ' + titleRegex)
+  core.debug('Using titleRegex input: ' + titleRegex)
   const releases = parseReleases(changelog, titleRegex)
 
   const version = core.getInput('version')
   const release = (() => {
     if (version) {
-      core.debug('Using version: ' + version)
+      core.debug('Using version input: ' + version)
       const stippedVersion = stripVersionString(version)
-      core.debug('Stripped version:' + stippedVersion)
+      core.debug('Stripped version: ' + stippedVersion)
       return getReleaseForVersion(releases, version)
     } else {
-      core.debug('Version not set. Using latest release')
+      core.debug('Version input not set. Using latest release')
       return getLatestRelease(releases)
     }
   })()
