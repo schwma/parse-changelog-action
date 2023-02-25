@@ -30,7 +30,7 @@ The body of the parsed release.
 
 ```yaml
 - name: Parse changelog
-  uses: schwma/parse-changelog-action@v0.1.0
+  uses: schwma/parse-changelog-action@main
   id: parse-changelog
   with:
     version: 'v1.2.3'
