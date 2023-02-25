@@ -19,5 +19,5 @@ jobs:
     - name: Create a GitHub release
       uses: ncipollo/release-action@v1
       with:
-        tag: "v${{ github.ref_name }}"
+        tag: '${{ github.ref_name }}'
         body: '${{ steps.parse-changelog.outputs.body }}'
