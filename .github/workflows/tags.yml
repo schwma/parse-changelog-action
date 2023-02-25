@@ -1,0 +1,18 @@
+name: Create major and latest tags
+
+on:
+  release:
+    types: [published, edited]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Create major and latest tags
+      uses: Actions-R-Us/actions-tagger@latest
+        with:
+          publish_latest_tag: true
