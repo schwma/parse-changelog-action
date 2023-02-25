@@ -1,0 +1,21 @@
+name: release
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Parse changelog
+      uses: ./
+      id: parse-changelog
+      with:
+        version: ${{ github.ref_name }}
+    - name: Create a GitHub release
+      uses: ncipollo/release-action@v1
+      with:
+        tag: "v${{ github.ref_name }}"
+        body: ${{ steps.parse-changelog.outputs.body }}
