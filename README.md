@@ -33,12 +33,11 @@ The body of the parsed release.
   uses: schwma/parse-changelog-action@latest
   id: parse-changelog
   with:
-    version: 'v1.2.3'
+    version: '${{ github.ref_name }}' # tag name on tag push events
 - name: Print parsed release title and body
   run: |
     echo 'Release title:'
     echo '${{ steps.parse-changelog.outputs.title }}'
     echo 'Release body:'
     echo '${{ steps.parse-changelog.outputs.body }}'
-
 ```
