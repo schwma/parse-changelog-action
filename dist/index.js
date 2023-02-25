@@ -2899,7 +2899,7 @@ try {
   const titleRegex = core.getInput('title-regex')
   core.debug('Using titleRegex input: ' + titleRegex)
   const releases = parseReleases(changelog, titleRegex)
-  core.debug('Parsed releases:\n' + JSON.stringify(releases, null, 2))
+  core.debug('Parsed releases:\n' + JSON.stringify(releases))
 
   const version = core.getInput('version')
   const release = (() => {
@@ -2913,7 +2913,7 @@ try {
       return getLatestRelease(releases)
     }
   })()
-  core.debug('Found release:\n' + JSON.stringify(release, null, 2))
+  core.debug('Found release:\n' + JSON.stringify(release))
 
   core.setOutput('title', release.title)
   core.setOutput('body', release.body)
