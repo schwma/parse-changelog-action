@@ -2,6 +2,9 @@ name: 'Parse changelog action'
 description: 'Parse a specific release from a CHANGELOG that roughly follows the "Keep a Changelog" format'
 author: 'Marcel Schwarz'
 inputs:
+  path:
+    description: 'The path of the changelog file to parse'
+    required: false
   title-regex:
     description: 'The regex to use when finding release titles'
     required: false

@@ -5,8 +5,15 @@ const { parseReleases, stripVersionString } = require('./src/parse')
 const { getLatestRelease, getReleaseForVersion } = require('./src/release')
 
 try {
-  const changelog = readChangelog()
-  core.debug('Read changelog:\n' + changelog)
+  const path = core.getInput('path')
+  if (path) {
+    core.debug('Using changelog file path: ' + path)
+  } else {
+    core.debug('Changelog file path not set. Trying default locations.')
+  }
+
+  const changelog = readChangelog(path)
+  core.debug('Read changelog contents:\n' + changelog)
 
   const titleRegex = core.getInput('title-regex')
   core.debug('Using titleRegex: ' + titleRegex)

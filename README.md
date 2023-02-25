@@ -4,6 +4,10 @@ This GitHub action parses a specific release from a CHANGELOG that roughly follo
 
 ## Inputs
 
+### `path`
+
+**Optional** The path of the changelog file to parse. By default the following file names will be attempted: `CHANGELOG.md`, `CHANGELOG`, `changelog.md`, `changelog`. Default `undefined`.
+
 ### `title-regex`
 
 **Optional** The regex to use when finding release titles. Default `"^## .*$"`.
