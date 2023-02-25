@@ -21,16 +21,17 @@ try {
   core.debug('Parsed releases:\n' + JSON.stringify(releases))
 
   const version = core.getInput('version')
-  let release
-  if (version) {
-    core.debug('Using version input: ' + version)
-    const strippedVersion = stripVersionString(version)
-    core.debug('Using stripped version: ' + strippedVersion)
-    release = getReleaseForVersion(releases, strippedVersion)
-  } else {
-    core.debug('Version input not set. Using latest release')
-    release = getLatestRelease(releases)
-  }
+  const release = (() => {
+    if (version) {
+      core.debug('Using version input: ' + version)
+      const strippedVersion = stripVersionString(version)
+      core.debug('Using stripped version: ' + strippedVersion)
+      return getReleaseForVersion(releases, strippedVersion)
+    } else {
+      core.debug('Version input not set. Using latest release')
+      return getLatestRelease(releases)
+    }
+  })()
 
   core.setOutput('title', release.title)
   core.setOutput('body', release.body)
