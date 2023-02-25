@@ -7,9 +7,11 @@ try {
   const changelog = readChangelog()
 
   const titleRegex = core.getInput('title-regex')
+  core.debug('Using titleRegex: ' + titleRegex)
   const releases = parseReleases(changelog, titleRegex)
 
   const version = core.getInput('version')
+  core.debug('Using version: ' + version)
   const release = version ? getReleaseForVersion(releases, version) : releases[0]
 
   core.setOutput('title', release.title)
