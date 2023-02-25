@@ -32,9 +32,9 @@ The body of the parsed release.
     version: 'v1.2.3'
 - name: Print parsed release title and body
   run: |
-    echo "Release title:"
-    echo "${{ steps.parse-changelog.title }}"
-    echo "Release body:"
-    echo "${{ steps.parse-changelog.body }}"
+    echo 'Release title:'
+    echo '${{ steps.parse-changelog.outputs.title }}'
+    echo 'Release body:'
+    echo '${{ steps.parse-changelog.outputs.body }}'
 
 ```
