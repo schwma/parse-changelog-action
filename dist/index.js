@@ -2899,13 +2899,14 @@ try {
   const titleRegex = core.getInput('title-regex')
   core.debug('Using titleRegex input: ' + titleRegex)
   const releases = parseReleases(changelog, titleRegex)
+  core.debug('Parsed releases:\n' + JSON.stringify(releases))
 
   const version = core.getInput('version')
   let release
   if (version) {
     core.debug('Using version input: ' + version)
     const stippedVersion = stripVersionString(version)
-    core.debug('Stripped version: ' + stippedVersion)
+    core.debug('Using stripped version: ' + stippedVersion)
     release = getReleaseForVersion(releases, version)
   } else {
     core.debug('Version input not set. Using latest release')
