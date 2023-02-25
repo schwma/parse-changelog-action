@@ -2905,9 +2905,9 @@ try {
   let release
   if (version) {
     core.debug('Using version input: ' + version)
-    const stippedVersion = stripVersionString(version)
-    core.debug('Using stripped version: ' + stippedVersion)
-    release = getReleaseForVersion(releases, version)
+    const strippedVersion = stripVersionString(version)
+    core.debug('Using stripped version: ' + strippedVersion)
+    release = getReleaseForVersion(releases, strippedVersion)
   } else {
     core.debug('Version input not set. Using latest release')
     release = getLatestRelease(releases)
