@@ -1,8 +1,6 @@
 name: Create major and latest tags
 
-on:
-  release:
-    types: [published, edited]
+on: workflow_dispatch
 
 jobs:
   release:
