@@ -2890,7 +2890,7 @@ try {
   if (path) {
     core.debug('Using changelog file path input: ' + path)
   } else {
-    core.debug('Changelog file path input not set. Trying default locations.')
+    core.debug('Changelog file path input not set. Trying default locations')
   }
 
   const changelog = readChangelog(path)
@@ -2899,7 +2899,7 @@ try {
   const titleRegex = core.getInput('title-regex')
   core.debug('Using titleRegex input: ' + titleRegex)
   const releases = parseReleases(changelog, titleRegex)
-  core.debug('Parsed releases:\n' + JSON.stringify(releases))
+  core.debug('Parsed releases:\n' + JSON.stringify(releases, null, 2))
 
   const version = core.getInput('version')
   const release = (() => {
@@ -2913,6 +2913,7 @@ try {
       return getLatestRelease(releases)
     }
   })()
+  core.debug('Found release:\n' + JSON.stringify(release, null, 2))
 
   core.setOutput('title', release.title)
   core.setOutput('body', release.body)
