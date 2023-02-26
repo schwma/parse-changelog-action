@@ -14,7 +14,7 @@ This GitHub action parses a specific release from a CHANGELOG that roughly follo
 
 ### `version-regex`
 
-**Optional** The regex to use when matching the version string from the version input and release titles. These regex matches are then used for comparison. Default `\\d+\\.\\d+\\.\\d+`.
+**Optional** The regex to use when matching the version string from the version input and release titles. These regex matches are then used for comparison. Default `\d+\.\d+\.\d+`.
 
 ### `version`
 
