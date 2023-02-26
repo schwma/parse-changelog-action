@@ -9,6 +9,10 @@ inputs:
     description: 'The regex to use when finding release titles'
     required: false
     default: '^## .*$'
+  version-regex:
+    description: 'The regex to use when matching the version string from the version input and release titles. These regex matches are then used for comparison.'
+    required: false
+    default: '\\d+\\.\\d+\\.\\d+'
   version:
     description: "The release version to parse from the changelog (all non-digit and period characters will be stipped away). The latest release will be used if this value isn't supplied."
     required: false

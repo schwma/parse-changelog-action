@@ -13,6 +13,6 @@ const parseReleases = (changelog, titleRegex) => {
   return titles.map((title, i) => ({ title, body: bodies[i]}))
 }
 
-const stripVersionString = version => version.replace(/[^\d.]/, '')
+const matchVersionString = (version, versionRegex) => version.match(versionRegex)[0]
 
-module.exports = { parseReleases, stripVersionString }
+module.exports = { parseReleases, matchVersionString }

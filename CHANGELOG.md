@@ -9,7 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `version-regex` input that defines the regex that is used to match versions from the `version` input and release titles which are then compared to find a specific release
+
 ### Changed
+
+- Non-digit and period characters are no longer stripped from the `version` input. Instead the `version-regex` is used.
 
 ### Fixed
 

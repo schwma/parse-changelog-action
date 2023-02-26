@@ -1,7 +1,7 @@
 const core = require('@actions/core')
 
 const { readChangelog } = require('./src/read')
-const { parseReleases, stripVersionString } = require('./src/parse')
+const { parseReleases, matchVersionString } = require('./src/parse')
 const { getLatestRelease, getReleaseForVersion } = require('./src/release')
 
 try {
@@ -19,17 +19,19 @@ try {
   core.debug('Read changelog contents:\n' + changelog)
 
   const titleRegex = new RegExp(core.getInput('title-regex'), 'gm')
-  core.debug('Using titleRegex input: ' + titleRegex)
+  core.debug('Using title-regex input: ' + titleRegex)
   const releases = parseReleases(changelog, titleRegex)
   core.debug('Parsed releases:\n' + JSON.stringify(releases))
 
+  const versionRegex = new RegExp(core.getInput('version-regex'))
+  core.debug('Using version-regex input: ' + titleRegex)
   const version = core.getInput('version')
   const release = (() => {
     if (version) {
       core.debug('Using version input: ' + version)
-      const strippedVersion = stripVersionString(version)
-      core.debug('Using stripped version: ' + strippedVersion)
-      return getReleaseForVersion(releases, strippedVersion)
+      const matchedVersion = matchVersionString(version, versionRegex)
+      core.debug('Using version regex match: ' + matchedVersion)
+      return getReleaseForVersion(releases, matchedVersion, versionRegex)
     } else {
       core.debug('Version input not set. Using latest release')
       return getLatestRelease(releases)

@@ -12,9 +12,13 @@ This GitHub action parses a specific release from a CHANGELOG that roughly follo
 
 **Optional** The regex to use when finding release titles. Default `"^## .*$"`.
 
+### `version-regex`
+
+**Optional** The regex to use when matching the version string from the version input and release titles. These regex matches are then used for comparison. Default `\\d+\\.\\d+\\.\\d+`.
+
 ### `version`
 
-**Optional** The release version to parse from the changelog (all non-digit and period characters will be stipped away). The latest release will be used if this value isn't supplied. Default `undefined`.
+**Optional** The release version to parse from the changelog (the `version-regex` input will be used to create a regex match from this input). The latest release will be used if this value isn't supplied. Default `undefined`.
 
 ## Outputs
 

@@ -2691,8 +2691,7 @@ exports["default"] = _default;
 /***/ 248:
 /***/ ((module) => {
 
-const parseReleases = (changelog, regex) => {
-  const titleRegex = new RegExp(regex, 'gm')
+const parseReleases = (changelog, titleRegex) => {
   const matches = Array.from(changelog.matchAll(titleRegex))
   const titles = matches.map(m => m[0])
   const indices = matches.map(m => m.index)
@@ -2707,13 +2706,9 @@ const parseReleases = (changelog, regex) => {
   return titles.map((title, i) => ({ title, body: bodies[i]}))
 }
 
-const stripVersionString = version => version.replace(/[^\d.]/, '')
+const matchVersionString = (version, versionRegex) => version.match(versionRegex)[0]
 
-const getLatestRelease = releases => releases[0]
-
-const getReleaseForVersion = (releases, version) => releases.find(r => r.title.includes(version))
-
-module.exports = { parseReleases, stripVersionString, getLatestRelease, getReleaseForVersion }
+module.exports = { parseReleases, matchVersionString }
 
 /***/ }),
 
@@ -2744,7 +2739,7 @@ module.exports = { readChangelog }
 
 const getLatestRelease = releases => releases[0]
 
-const getReleaseForVersion = (releases, version) => releases.find(r => r.title.includes(version))
+const getReleaseForVersion = (releases, version, versionRegex) => releases.find(r => r.title.match(versionRegex)[0] === version)
 
 module.exports = { getLatestRelease, getReleaseForVersion }
 
@@ -2890,7 +2885,7 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(186)
 
 const { readChangelog } = __nccwpck_require__(852)
-const { parseReleases, stripVersionString } = __nccwpck_require__(248)
+const { parseReleases, matchVersionString } = __nccwpck_require__(248)
 const { getLatestRelease, getReleaseForVersion } = __nccwpck_require__(26)
 
 try {
@@ -2907,18 +2902,20 @@ try {
   const changelog = readChangelog(path)
   core.debug('Read changelog contents:\n' + changelog)
 
-  const titleRegex = core.getInput('title-regex')
-  core.debug('Using titleRegex input: ' + titleRegex)
+  const titleRegex = new RegExp(core.getInput('title-regex'), 'gm')
+  core.debug('Using title-regex input: ' + titleRegex)
   const releases = parseReleases(changelog, titleRegex)
   core.debug('Parsed releases:\n' + JSON.stringify(releases))
 
+  const versionRegex = new RegExp(core.getInput('version-regex'))
+  core.debug('Using version-regex input: ' + titleRegex)
   const version = core.getInput('version')
   const release = (() => {
     if (version) {
       core.debug('Using version input: ' + version)
-      const strippedVersion = stripVersionString(version)
-      core.debug('Using stripped version: ' + strippedVersion)
-      return getReleaseForVersion(releases, strippedVersion)
+      const matchedVersion = matchVersionString(version, versionRegex)
+      core.debug('Using version regex match: ' + matchedVersion)
+      return getReleaseForVersion(releases, matchedVersion, versionRegex)
     } else {
       core.debug('Version input not set. Using latest release')
       return getLatestRelease(releases)
