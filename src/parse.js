@@ -1,5 +1,4 @@
-const parseReleases = (changelog, regex) => {
-  const titleRegex = new RegExp(regex, 'gm')
+const parseReleases = (changelog, titleRegex) => {
   const matches = Array.from(changelog.matchAll(titleRegex))
   const titles = matches.map(m => m[0])
   const indices = matches.map(m => m.index)

@@ -18,7 +18,7 @@ try {
   const changelog = readChangelog(path)
   core.debug('Read changelog contents:\n' + changelog)
 
-  const titleRegex = core.getInput('title-regex')
+  const titleRegex = new RegExp(core.getInput('title-regex'), 'gm')
   core.debug('Using titleRegex input: ' + titleRegex)
   const releases = parseReleases(changelog, titleRegex)
   core.debug('Parsed releases:\n' + JSON.stringify(releases))
