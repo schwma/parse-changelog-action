@@ -13,6 +13,10 @@ const parseReleases = (changelog, titleRegex) => {
   return titles.map((title, i) => ({ title, body: bodies[i]}))
 }
 
-const matchVersionString = (version, versionRegex) => version.match(versionRegex)[0]
+const matchVersionString = (version, versionRegex) => {
+  const match = version.match(versionRegex)
+  if (!match) throw new Error('Could not find match for regex '+ versionRegex + ' in version: ' + version)
+  return match[0]
+}
 
 module.exports = { parseReleases, matchVersionString }
