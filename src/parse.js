@@ -16,8 +16,4 @@ const parseReleases = (changelog, regex) => {
 
 const stripVersionString = version => version.replace(/[^\d.]/, '')
 
-const getLatestRelease = releases => releases[0]
-
-const getReleaseForVersion = (releases, version) => releases.find(r => r.title.includes(version))
-
-module.exports = { parseReleases, stripVersionString, getLatestRelease, getReleaseForVersion }
+module.exports = { parseReleases, stripVersionString }
