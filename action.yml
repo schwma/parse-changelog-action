@@ -22,5 +22,5 @@ outputs:
   body:
     description: 'The body of the parsed release'
 runs:
-  using: 'node16'
+  using: 'node22'
   main: 'dist/index.js'
