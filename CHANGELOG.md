@@ -7,13 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version 1.1.0 - tbd
 
-### Added
-
 ### Changed
 
-### Fixed
-
-### Removed
+- Workflow now uses `node22` for execution.
 
 ## Version 1.0.0 - 2023-02-26
 
