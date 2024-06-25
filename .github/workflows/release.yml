@@ -24,6 +24,6 @@ jobs:
         tag: '${{ github.ref_name }}'
         body: '${{ steps.parse-changelog.outputs.body }}'
     - name: Create major and latest tags
-      uses: Actions-R-Us/actions-tagger@latest
+      uses: Actions-R-Us/actions-tagger@v2.1.0-rc5
       with:
         publish_latest_tag: true
