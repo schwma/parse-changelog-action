@@ -1,6 +1,6 @@
 {
   "name": "parse-changelog-action",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "This GitHub action parses a specific release from a CHANGELOG that roughly follows the \"Keep a Changelog\" format.",
   "main": "dist/index.js",
   "scripts": {
