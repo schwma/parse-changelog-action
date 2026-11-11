@@ -45,3 +45,19 @@ The body of the parsed release.
     echo 'Release body:'
     echo '${{ steps.parse-changelog.outputs.body }}'
 ```
+
+## Releasing
+
+On `main`, set the version in `package.json` and finalize the matching version and date in `CHANGELOG.md`. Then run (example for `1.3.0`); `npm install` updates `package-lock.json` automatically.
+
+```sh
+npm install
+npm run build
+git add package.json package-lock.json CHANGELOG.md dist/
+git commit -m "chore: prepare release 1.3.0"
+git push origin main
+git tag v1.3.0
+git push origin v1.3.0
+```
+
+Verify the release workflow succeeds. It publishes the GitHub release from the changelog and updates the major-version and `latest` tags. The built `dist/` must be committed; the workflow publishes neither to npm nor GitHub Marketplace.
