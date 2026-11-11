@@ -4,7 +4,7 @@
   "description": "This GitHub action parses a specific release from a CHANGELOG that roughly follows the \"Keep a Changelog\" format.",
   "main": "dist/index.js",
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "husky",
     "build": "ncc build index.js -o dist --source-map --license licenses.txt",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,10 +18,10 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@actions/core": "^1.10.0"
+    "@actions/core": "^3.0.1"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.36.1",
-    "husky": "^8.0.3"
+    "@vercel/ncc": "^0.45.0",
+    "husky": "^9.1.7"
   }
 }

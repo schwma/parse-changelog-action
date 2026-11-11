@@ -1,12 +1,12 @@
-const core = require('@actions/core')
+import * as core from '@actions/core'
 
 const { readChangelog } = require('./src/read')
 const { parseReleases, matchVersionString } = require('./src/parse')
 const { getLatestRelease, getReleaseForVersion } = require('./src/release')
 
 try {
-  const package = require('../package.json')
-  core.debug(package.name + '@' + package.version)
+  const packageMetadata = require('./package.json')
+  core.debug(packageMetadata.name + '@' + packageMetadata.version)
 
   const path = core.getInput('path')
   if (path) {
