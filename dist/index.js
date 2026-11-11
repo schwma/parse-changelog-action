@@ -31750,7 +31750,7 @@ var parse = __nccwpck_require__(3046);
 // EXTERNAL MODULE: ./src/release.js
 var src_release = __nccwpck_require__(5712);
 ;// CONCATENATED MODULE: ./package.json
-const package_namespaceObject = /*#__PURE__*/JSON.parse('{"UU":"parse-changelog-action","rE":"1.2.1"}');
+const package_namespaceObject = /*#__PURE__*/JSON.parse('{"UU":"parse-changelog-action","rE":"1.3.0"}');
 ;// CONCATENATED MODULE: ./index.js
 
 
