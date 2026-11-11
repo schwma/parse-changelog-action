@@ -28754,14 +28754,6 @@ module.exports = require("tls");
 "use strict";
 module.exports = require("util");
 
-/***/ }),
-
-/***/ 8330:
-/***/ ((module) => {
-
-"use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"name":"parse-changelog-action","version":"1.3.0","description":"This GitHub action parses a specific release from a CHANGELOG that roughly follows the \\"Keep a Changelog\\" format.","main":"dist/index.js","scripts":{"prepare":"husky","build":"ncc build index.js -o dist --source-map --license licenses.txt","test":"npm run build && node --test test/*.test.js"},"keywords":["GitHub","action","parse","changelog"],"author":"Marcel Schwarz","license":"MIT","private":true,"dependencies":{"@actions/core":"^3.0.1"},"devDependencies":{"@vercel/ncc":"^0.45.0","husky":"^9.1.7"}}');
-
 /***/ })
 
 /******/ 	});
@@ -31751,16 +31743,23 @@ function getIDToken(aud) {
  */
 
 //# sourceMappingURL=core.js.map
+// EXTERNAL MODULE: ./src/read.js
+var read = __nccwpck_require__(3373);
+// EXTERNAL MODULE: ./src/parse.js
+var parse = __nccwpck_require__(3046);
+// EXTERNAL MODULE: ./src/release.js
+var src_release = __nccwpck_require__(5712);
+;// CONCATENATED MODULE: ./package.json
+const package_namespaceObject = /*#__PURE__*/JSON.parse('{"UU":"parse-changelog-action","rE":"1.3.0"}');
 ;// CONCATENATED MODULE: ./index.js
 
 
-const { readChangelog } = __nccwpck_require__(3373)
-const { parseReleases, matchVersionString } = __nccwpck_require__(3046)
-const { getLatestRelease, getReleaseForVersion } = __nccwpck_require__(5712)
+
+
+
 
 try {
-  const packageMetadata = __nccwpck_require__(8330)
-  core_debug(packageMetadata.name + '@' + packageMetadata.version)
+  core_debug(package_namespaceObject.UU + '@' + package_namespaceObject.rE)
 
   const path = getInput('path')
   if (path) {
@@ -31769,12 +31768,12 @@ try {
     core_debug('Changelog file path input not set. Trying default locations')
   }
 
-  const changelog = readChangelog(path)
+  const changelog = (0,read.readChangelog)(path)
   core_debug('Read changelog contents:\n' + changelog)
 
   const titleRegex = new RegExp(getInput('title-regex'), 'gm')
   core_debug('Using title-regex input: ' + titleRegex)
-  const releases = parseReleases(changelog, titleRegex)
+  const releases = (0,parse.parseReleases)(changelog, titleRegex)
   core_debug('Parsed releases:\n' + JSON.stringify(releases))
 
   const versionRegex = new RegExp(getInput('version-regex'))
@@ -31783,12 +31782,12 @@ try {
   const release = (() => {
     if (version) {
       core_debug('Using version input: ' + version)
-      const matchedVersion = matchVersionString(version, versionRegex)
+      const matchedVersion = (0,parse.matchVersionString)(version, versionRegex)
       core_debug('Using version regex match: ' + matchedVersion)
-      return getReleaseForVersion(releases, matchedVersion, versionRegex)
+      return (0,src_release.getReleaseForVersion)(releases, matchedVersion, versionRegex)
     } else {
       core_debug('Version input not set. Using latest release')
-      return getLatestRelease(releases)
+      return (0,src_release.getLatestRelease)(releases)
     }
   })()
   core_debug('Found release:\n' + JSON.stringify(release))

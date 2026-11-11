@@ -1,11 +1,10 @@
 import * as core from '@actions/core'
-
-const { readChangelog } = require('./src/read')
-const { parseReleases, matchVersionString } = require('./src/parse')
-const { getLatestRelease, getReleaseForVersion } = require('./src/release')
+import { readChangelog } from './src/read.js'
+import { parseReleases, matchVersionString } from './src/parse.js'
+import { getLatestRelease, getReleaseForVersion } from './src/release.js'
+import packageMetadata from './package.json' with { type: 'json' }
 
 try {
-  const packageMetadata = require('./package.json')
   core.debug(packageMetadata.name + '@' + packageMetadata.version)
 
   const path = core.getInput('path')

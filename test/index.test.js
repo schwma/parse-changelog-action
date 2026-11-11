@@ -25,7 +25,7 @@ const runAction = (context, version = '', changelogPath = 'CHANGELOG.md') => {
     - Previous change.
   `))
 
-  const result = spawnSync(process.execPath, [path.join(__dirname, '../dist/index.js')], {
+  const result = spawnSync(process.execPath, [path.join(__dirname, '../index.js')], {
     cwd: directory,
     encoding: 'utf8',
     timeout: 10000,
