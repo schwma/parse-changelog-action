@@ -4,25 +4,26 @@ const fs = require('node:fs')
 const os = require('node:os')
 const path = require('node:path')
 const { spawnSync } = require('node:child_process')
+const { trimLines } = require('./util')
 
 const runAction = (context, version = '', changelogPath = 'CHANGELOG.md') => {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'parse-changelog-action-'))
   context.after(() => fs.rmSync(directory, { recursive: true, force: true }))
   const outputPath = path.join(directory, 'output')
   fs.writeFileSync(outputPath, '')
-  fs.writeFileSync(path.join(directory, 'CHANGELOG.md'), [
-    '# Changelog',
-    '',
-    '## Version 1.3.0',
-    '',
-    '### Changed',
-    '',
-    '- Latest change.',
-    '',
-    '## Version 1.2.0',
-    '',
-    '- Previous change.'
-  ].join('\n'))
+  fs.writeFileSync(path.join(directory, 'CHANGELOG.md'), trimLines(`
+    # Changelog
+
+    ## Version 1.3.0 - tbd
+
+    ### Changed
+
+    - Latest change.
+
+    ## Version 1.2.0 - 2024-06-25
+
+    - Previous change.
+  `))
 
   const result = spawnSync(process.execPath, [path.join(__dirname, '../dist/index.js')], {
     cwd: directory,
@@ -41,17 +42,24 @@ const runAction = (context, version = '', changelogPath = 'CHANGELOG.md') => {
   return { ...result, output: fs.readFileSync(outputPath, 'utf8') }
 }
 
-test('action outputs the latest release when no version is supplied', context => {
+test('action outputs the latest release with a tbd date when no version is supplied', context => {
   const result = runAction(context)
   assert.strictEqual(result.status, 0, result.stdout + result.stderr)
-  assert.match(result.output, /^title<<([^\r\n]+)\r?\n## Version 1\.3\.0\r?\n\1\r?$/m)
+  assert.match(result.output, /^title<<([^\r\n]+)\r?\n## Version 1\.3\.0 - tbd\r?\n\1\r?$/m)
+  assert.match(result.output, /^body<<([^\r\n]+)\r?\n### Changed\r?\n\r?\n- Latest change\.\r?\n\1\r?$/m)
+})
+
+test('action selects a release with a tbd date by version tag', context => {
+  const result = runAction(context, 'v1.3.0')
+  assert.strictEqual(result.status, 0, result.stdout + result.stderr)
+  assert.match(result.output, /^title<<([^\r\n]+)\r?\n## Version 1\.3\.0 - tbd\r?\n\1\r?$/m)
   assert.match(result.output, /^body<<([^\r\n]+)\r?\n### Changed\r?\n\r?\n- Latest change\.\r?\n\1\r?$/m)
 })
 
 test('action outputs the requested release from a version tag', context => {
   const result = runAction(context, 'v1.2.0')
   assert.strictEqual(result.status, 0, result.stdout + result.stderr)
-  assert.match(result.output, /^title<<([^\r\n]+)\r?\n## Version 1\.2\.0\r?\n\1\r?$/m)
+  assert.match(result.output, /^title<<([^\r\n]+)\r?\n## Version 1\.2\.0 - 2024-06-25\r?\n\1\r?$/m)
   assert.match(result.output, /^body<<([^\r\n]+)\r?\n- Previous change\.\r?\n\1\r?$/m)
 })
 

@@ -28760,7 +28760,7 @@ module.exports = require("util");
 /***/ ((module) => {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"name":"parse-changelog-action","version":"1.3.0","description":"This GitHub action parses a specific release from a CHANGELOG that roughly follows the \\"Keep a Changelog\\" format.","main":"dist/index.js","scripts":{"prepare":"husky","build":"ncc build index.js -o dist --source-map --license licenses.txt","test":"npm run build && node --test"},"keywords":["GitHub","action","parse","changelog"],"author":"Marcel Schwarz","license":"MIT","private":true,"dependencies":{"@actions/core":"^3.0.1"},"devDependencies":{"@vercel/ncc":"^0.45.0","husky":"^9.1.7"}}');
+module.exports = /*#__PURE__*/JSON.parse('{"name":"parse-changelog-action","version":"1.3.0","description":"This GitHub action parses a specific release from a CHANGELOG that roughly follows the \\"Keep a Changelog\\" format.","main":"dist/index.js","scripts":{"prepare":"husky","build":"ncc build index.js -o dist --source-map --license licenses.txt","test":"npm run build && node --test test/*.test.js"},"keywords":["GitHub","action","parse","changelog"],"author":"Marcel Schwarz","license":"MIT","private":true,"dependencies":{"@actions/core":"^3.0.1"},"devDependencies":{"@vercel/ncc":"^0.45.0","husky":"^9.1.7"}}');
 
 /***/ })
 
