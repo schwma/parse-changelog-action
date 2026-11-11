@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Use the Node.js 24 runtime.
+
 ### Fixed
 
 ### Removed
