@@ -6,7 +6,7 @@
   "scripts": {
     "prepare": "husky",
     "build": "ncc build index.js -o dist --source-map --license licenses.txt",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test"
   },
   "keywords": [
     "GitHub",

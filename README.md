@@ -52,6 +52,7 @@ On `main`, set the version in `package.json` and finalize the matching version a
 
 ```sh
 npm install
+npm test
 npm run build
 git add package.json package-lock.json CHANGELOG.md dist/
 git commit -m "chore: prepare release 1.3.0"
