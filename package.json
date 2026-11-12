@@ -6,7 +6,9 @@
   "scripts": {
     "prepare": "husky",
     "build": "ncc build index.js -o dist --source-map --license licenses.txt",
-    "test": "node --test test/*.test.js"
+    "test": "node --test test/*.test.js",
+    "release": "node scripts/changelog.js release",
+    "post-release": "node scripts/changelog.js post-release"
   },
   "keywords": [
     "GitHub",

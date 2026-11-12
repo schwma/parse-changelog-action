@@ -48,9 +48,10 @@ The body of the parsed release.
 
 ## Releasing
 
-On `main`, set the version in `package.json`. In `CHANGELOG.md`, record the release changes under Added, Changed, Fixed, or Removed, set the matching version, replace `tbd` with the release date, and remove empty sections. Then run (example for `1.3.0`); `npm install` updates `package-lock.json` automatically.
+On `main`, set the version in `package.json` and record the changelog entries in its matching `tbd` section in `CHANGELOG.md`. Review all pending changes, then run:
 
 ```sh
+npm run release
 npm install
 npm test
 npm run build
@@ -61,12 +62,17 @@ git tag v1.3.0
 git push origin v1.3.0
 ```
 
-Verify the release workflow succeeds. It publishes the GitHub release from the changelog and updates the major-version and `latest` tags. The built `dist/` must be committed; the workflow publishes neither to npm nor GitHub Marketplace.
+`npm run release` only dates the changelog entry and removes empty sections. The commands above use `1.3.0` as an example; substitute your release version. Verify the release workflow succeeds: it creates the GitHub release from the changelog and updates the major-version and `latest` tags. Nothing is published to npm or GitHub Marketplace.
 
-After the workflow succeeds, fetch tags with force to overwrite moved local tags such as `v1` and `latest`:
+After the workflow succeeds, bump the version in `package.json`, then run:
 
 ```sh
 git fetch origin --tags --force
+npm run post-release
+npm install
+npm run build
+git add .
+git commit -m "Prepare next release"
 ```
 
-Prepare the next release: bump the version in `package.json`, run `npm install`, and add a new `Version <next-version> - tbd` section to `CHANGELOG.md` with empty Added, Changed, Fixed, and Removed headings. Rebuild and commit as `Prepare next release`.
+`npm run post-release` only adds the next `tbd` changelog section with empty Added, Changed, Fixed, and Removed headings. The forced fetch refreshes moved local tags such as `v1` and `latest`; `npm install` updates the lockfile. Push the preparation commit when ready.
